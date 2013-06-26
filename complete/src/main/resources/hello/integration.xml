@@ -4,43 +4,26 @@
     xmlns:int="http://www.springframework.org/schema/integration"
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
     xmlns:file="http://www.springframework.org/schema/integration/file"
-    xmlns:c="http://www.springframework.org/schema/c"
     xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
 
     <twitter:search-inbound-channel-adapter id="tweets" 
-            query="#Disney" 
+            query="#s2gx" 
             twitter-template="twitterTemplate">
         <int:poller fixed-rate="5000"/>
     </twitter:search-inbound-channel-adapter>
-    
+
     <int:transformer 
             input-channel="tweets" 
             expression="payload.fromUser + '  :  ' + payload.text + @newline" 
             output-channel="files"/>
-    
-    <bean id="newline" class="java.lang.String"
-        c:_="#{systemProperties['line.separator']}" />
 
     <file:outbound-channel-adapter id="files"
             mode="APPEND"
             charset="UTF-8"
             directory="/tmp/si"
-            filename-generator-expression="'tweets'"/>
-
-    <!--  SPRING SOCIAL CONFIG -->
-
-    <bean id="twitterTemplate" class="org.springframework.social.twitter.api.impl.TwitterTemplate"
-        c:_="#{oauth2Template.authenticateClient().getAccessToken()}" />
-    
-    <bean id="oauth2Template" class="org.springframework.social.oauth2.OAuth2Template">
-        <constructor-arg value="YR571S2JiVBOFyJS5MEg" />
-        <constructor-arg value="Kb8hS0luftwCJX3qVoyiLUMfZDtK1EozFoUkjNLUMx4" />
-        <constructor-arg value="" />
-        <constructor-arg value="https://api.twitter.com/oauth2/token" /> 
-        <property name="useParametersForClientAuthentication" value="true" />
-    </bean>
+            filename-generator-expression="'s2gxtweets'"/>
 
 </beans>
