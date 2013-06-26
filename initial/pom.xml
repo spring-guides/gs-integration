@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>gs-integration-complete</artifactId>
+    <artifactId>gs-integration-initial</artifactId>
     <version>0.1.0</version>
 
     <parent>
@@ -37,19 +37,6 @@
             <version>2.2.4.RELEASE</version>
         </dependency>
     </dependencies>
-
-    <properties>
-        <start-class>hello.Application</start-class>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <repositories>
         <repository>
