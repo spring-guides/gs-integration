@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
 
     <twitter:search-inbound-channel-adapter id="tweets" 
-            query="#s2gx" 
+            query="#HelloWorld" 
             twitter-template="twitterTemplate">
         <int:poller fixed-rate="5000"/>
     </twitter:search-inbound-channel-adapter>
@@ -24,6 +24,6 @@
             mode="APPEND"
             charset="UTF-8"
             directory="/tmp/si"
-            filename-generator-expression="'s2gxtweets'"/>
+            filename-generator-expression="'hellotweets'"/>
 
 </beans>
