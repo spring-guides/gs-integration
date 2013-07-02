@@ -1,9 +1,9 @@
-# Getting Started: Data Integration
+# Getting Started: Integrating Data
 
 What you'll build
 -----------------
 
-This guide walks you through creating a simple application that retrieves data from Twitter, manipulates the data, then writes it to a file.
+This guide walks you through using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
 
 What you'll need
 ----------------
@@ -114,16 +114,16 @@ In a project directory of your choosing, create the following subdirectory struc
 
 TODO: mention that we're using Spring Bootstrap's [_starter POMs_](../gs-bootstrap-starter) here.
 
-> Note to experienced Maven users who don't use an external parent project: You can take it out later, it's just there to reduce the amount of code you have to write to get started.
+> Note to experienced Maven users who don't use an external parent project: You can take out the project later, it's just there to reduce the amount of code you have to write to get started.
 
 
 <a name="initial"></a>
-Define an Integration Plan
+Define an integration plan
 --------------------------
 
-For this guide's sample application, you're going to define a Spring Integration plan that reads tweets from Twitter, transforms them into an easily readable `String`, and appends that `String` to the end of a file.
+For this guide's sample application, you will define a Spring Integration plan that reads tweets from Twitter, transforms them into an easily readable `String`, and appends that `String` to the end of a file.
 
-To define an integration plan, you simply create a Spring XML configuration using a handful of elements from Spring Integration's XML namespaces. Specifically, for the desired integration plan, you'll need to work with elements from 3 of Spring Integration's namespaces: core, twitter, and file.
+To define an integration plan, you simply create a Spring XML configuration with a handful of elements from Spring Integration's XML namespaces. Specifically, for the desired integration plan, you work with elements from these Spring Integration namespaces: core, twitter, and file.
 
 The following XML configuration file defines the integration plan:
 
@@ -136,9 +136,9 @@ The following XML configuration file defines the integration plan:
     xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
     xmlns:file="http://www.springframework.org/schema/integration/file"
     xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
+        http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/integration/twitter http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.2.xsd">
 
     <twitter:search-inbound-channel-adapter id="tweets" 
             query="#HelloWorld" 
@@ -160,22 +160,22 @@ The following XML configuration file defines the integration plan:
 </beans>
 ```
 
-As you can see, there are three integration elements in play here:
+As you can see, three integration elements are in play here:
 
- * `<twitter:search-inbound-channel-adapter>` - An inbound adapter that searches Twitter for tweets with "#HelloWorld" in the text. It is injected with a `TwitterTemplate` from [Spring Social][SpringSocial] to perform the actual search. As configured here, it polls every 5 seconds. Any matching tweets are placed into a channel named "tweets" (corresponding with the adapter's ID).
- * `<int:transformer>` - Transformed tweets in the "tweets" channel, extracting the tweet's author (`payload.fromUser`) and text (`payload.text`) and concatenating them into a readable `String`. The `String` is then written through the output channel named "files".
- * `<file:outbound-channel-adapter>` - An outbound adapter that writes content from its channel (here named "files") to a file. Specifically, as configured here, it will append anything in the "files" channel to a file at `/tmp/si/HelloWorld`.
+ * `<twitter:search-inbound-channel-adapter>`. An inbound adapter that searches Twitter for tweets with "#HelloWorld" in the text. It is injected with a `TwitterTemplate` from [Spring Social][SpringSocial] to perform the actual search. As configured here, it polls every 5 seconds. Any matching tweets are placed into a channel named "tweets" (corresponding with the adapter's ID).
+ * `<int:transformer>`. Transformed tweets in the "tweets" channel, extracting the tweet's author (`payload.fromUser`) and text (`payload.text`) and concatenating them into a readable `String`. The `String` is then written through the output channel named "files".
+ * `<file:outbound-channel-adapter>`. An outbound adapter that writes content from its channel (here named "files") to a file. Specifically, as configured here, it will append anything in the "files" channel to a file at `/tmp/si/HelloWorld`.
 
 This simple flow is illustrated like this:
 
 ![A flow plan that reads tweets from Twitter, transforms them to a String, and appends them to a file.](images/tweetToFile.png)
 
-Notice that the integration plan references a couple of beans that aren't defined in `integration.xml`. Specifically, the "twitterTemplate" bean that is injected into the search inbound adapter and the "newline" bean referenced in the transformer are not defined here. Those beans will be declared separately in JavaConfig as part of the main class of the application.
+The integration plan references two beans that aren't defined in `integration.xml`: the "twitterTemplate" bean that is injected into the search inbound adapter and the "newline" bean referenced in the transformer. Those beans will be declared separately in JavaConfig as part of the main class of the application.
 
 Make the application executable
 -------------------------------
 
-Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web applicaion, there's no reason that it can't be defined in a simpler standalone application. That's what you'll do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You'll also build the application into a standalone executable JAR file.
+Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web applicaion, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You also build the application into a standalone executable JAR file.
 
 ### Create a main class
 `src/main/java/hello/Application.java`
@@ -218,15 +218,15 @@ public class Application {
 }
 ```
 
-As you can see, this class provies a `main()` method that loads the Spring application context. It's also annotated as a `@Configuration` class, indicating that it will contain some bean definitions.
+As you can see, this class provides a `main()` method that loads the Spring application context. It's also annotated as a `@Configuration` class, indicating that it will contain bean definitions.
 
-Specifically, there are three beans created in this class:
+Specifically, three beans are created in this class:
 
  * The `newline()` method creates a simple `String` bean containing the underlying system's newline character(s). This is used in the integration plan to place a newline at the end of the transformed tweet `String`.
  * The `twitterTemplate()` method defines a `TwitterTemplate` bean that is injected into the `<twitter:search-inbound-channel-adapter>`.
  * The `oauth2Template()` method defines a Spring Social `OAuth2Template` bean used to obtain a client access token when creating the `TwitterTemplate` bean.
 
-Note that the `oauth2Template()` method references the `Environment` to get "clientId" and "clientSecret" properties. Those properties are ultimately client credentials you are given when you [register your application with Twitter][register-twitter-app]. By fetching them from the `Environment`, it prevents you from having to hardcode them in this configuration class. You'll need them when you [run the application](#run), though.
+The `oauth2Template()` method references the `Environment` to get "clientId" and "clientSecret" properties. Those properties are ultimately client credentials you are given when you [register your application with Twitter][register-twitter-app]. Fetching them from the `Environment` means you don't have to hardcode them in this configuration class. You'll need them when you [run the application](#run), though.
 
 Finally, notice that `Application` is configured with `@ImportResource` to import the integration plan defined in `/hello/integration.xml`. 
 
@@ -263,7 +263,7 @@ Now run the following to produce a single executable JAR file containing all nec
 [maven-shade-plugin]: https://maven.apache.org/plugins/maven-shade-plugin
 
 <a name="run"></a>
-Running the Application
+Run the application
 -----------------------
 
 Now you can run the application from the jar:
@@ -273,11 +273,11 @@ $ java -DclientId={YOUR CLIENT ID} -DclientSecret={YOUR CLIENT SECRET} -jar targ
 ... app starts up ...
 ```
 
-Note that you'll need to be sure to specify your application's client ID and secret in place of the placeholders shown here.
+Make sure you specify your application's client ID and secret in place of the placeholders shown here.
 
-Once the application starts up, it will connect to Twitter and start fetching tweets that match the search criteria of "#HelloWorld". It will process those tweets through the integration plan you defined, ultimately appending the tweet's author and text to a file at `/tmp/si/HelloWorld`.
+Once the application starts up, it connects to Twitter and starts fetching tweets that match the search criteria of "#HelloWorld". The application processes those tweets through the integration plan you defined, ultimately appending the tweet's author and text to a file at `/tmp/si/HelloWorld`.
 
-After the application has been running for awhile, you should be able to view the file at `/tmp/si/HelloWorld` to see the data from a handful of tweets. On a UNIX-based operating system, you also choose to tail the file to see the results as they are written:
+After the application has been running for awhile, you should be able to view the file at `/tmp/si/HelloWorld` to see the data from a handful of tweets. On a UNIX-based operating system, you can also choose to tail the file to see the results as they are written:
 
 ```sh
 $ tail -f /tmp/si/HelloWorld
@@ -294,7 +294,7 @@ GRhoderick  :  Ok Saint Louis, show me what you got. #HelloWorld
 
 Summary
 -------
-Congratulations! You have just developed a simple application that uses Spring Integration to fetch tweets from Twitter, process them, and write them to a file. There's a lot more that Spring Integration can do
+Congratulations! You have developed a simple application that uses Spring Integration to fetch tweets from Twitter, process them, and write them to a file. 
 
 [zip]: https://github.com/springframework-meta/gs-accessing-facebook/archive/master.zip
 [u-war]: /understanding/war
