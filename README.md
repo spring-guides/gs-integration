@@ -1,3 +1,4 @@
+
 # Getting Started: Integrating Data
 
 What you'll build
@@ -8,7 +9,7 @@ This guide walks you through using Spring Integration to create a simple applica
 What you'll need
 ----------------
 
-- About 15 minutes
+ - About 15 minutes
  - A favorite text editor or IDE
  - [JDK 6][jdk] or later
  - [Maven 3.0][mvn] or later
@@ -26,11 +27,12 @@ To **start from scratch**, move on to [Set up the project](#scratch).
 To **skip the basics**, do the following:
 
  - [Download][zip] and unzip the source repository for this guide, or clone it using [git](/understanding/git):
-`git clone https://github.com/springframework-meta/{@project-name}.git`
- - cd into `{@project-name}/initial`
- - Jump ahead to [Create a resource representation class](#initial).
+`git clone https://github.com/springframework-meta/gs-integration.git`
+ - cd into `gs-integration/initial`
+ - Jump ahead to [Define an integration plan](#initial).
 
-**When you're finished**, you can check your results against the code in `{@project-name}/complete`.
+**When you're finished**, you can check your results against the code in `gs-integration/complete`.
+[zip]: https://github.com/springframework-meta/gs-integration/archive/master.zip
 
 <a name="scratch"></a>
 Set up the project
@@ -56,7 +58,7 @@ In a project directory of your choosing, create the following subdirectory struc
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>gs-integration-initial</artifactId>
+    <artifactId>gs-integration-complete</artifactId>
     <version>0.1.0</version>
 
     <parent>
@@ -90,6 +92,19 @@ In a project directory of your choosing, create the following subdirectory struc
         </dependency>
     </dependencies>
 
+    <properties>
+        <start-class>hello.Application</start-class>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <repositories>
         <repository>
             <id>spring-snapshots</id>
@@ -114,8 +129,7 @@ In a project directory of your choosing, create the following subdirectory struc
 
 TODO: mention that we're using Spring Bootstrap's [_starter POMs_](../gs-bootstrap-starter) here.
 
-> Note to experienced Maven users who don't use an external parent project: You can take out the project later, it's just there to reduce the amount of code you have to write to get started.
-
+Note to experienced Maven users who are unaccustomed to using an external parent project: you can take it out later, it's just there to reduce the amount of code you have to write to get started.
 
 <a name="initial"></a>
 Define an integration plan
@@ -178,6 +192,7 @@ Make the application executable
 Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web applicaion, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You also build the application into a standalone executable JAR file.
 
 ### Create a main class
+
 `src/main/java/hello/Application.java`
 ```java
 package hello;
@@ -262,7 +277,6 @@ Now run the following to produce a single executable JAR file containing all nec
 
 [maven-shade-plugin]: https://maven.apache.org/plugins/maven-shade-plugin
 
-<a name="run"></a>
 Run the application
 -----------------------
 
@@ -279,9 +293,7 @@ Once the application starts up, it connects to Twitter and starts fetching tweet
 
 After the application has been running for awhile, you should be able to view the file at `/tmp/si/HelloWorld` to see the data from a handful of tweets. On a UNIX-based operating system, you can also choose to tail the file to see the results as they are written:
 
-```sh
-$ tail -f /tmp/si/HelloWorld
-```
+    $ tail -f /tmp/si/HelloWorld
 
 You should see something like this (the actual tweets may differ):
 
@@ -296,7 +308,6 @@ Summary
 -------
 Congratulations! You have developed a simple application that uses Spring Integration to fetch tweets from Twitter, process them, and write them to a file. 
 
-[zip]: https://github.com/springframework-meta/gs-accessing-facebook/archive/master.zip
 [u-war]: /understanding/war
 [u-tomcat]: /understanding/tomcat
 [u-application-context]: /understanding/application-context
