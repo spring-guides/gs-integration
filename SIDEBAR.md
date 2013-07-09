@@ -4,15 +4,17 @@ There's more to integrating data than is covered here. You may want to continue 
 
 ### Getting Started Guides
 
-* [Building a RESTful Web Service][gs-rest-service]
-* [Accessing Facebook Data][gs-accessing-facebook]
-* [Accessing Twitter Data][gs-accessing-twitter]
-* [Building a Hypermedia Driven REST Web Service][gs-rest-hateoas]
+* [Capturing Stream Data][gs-capturing-stream-data]
+* [Messaging with JMS][gs-messaging-jms]
+* [Messaging with RabbitMQ][gs-messaging-rabbitmq]
+* [Messaging with Redis][gs-messaging-redis]
+* [Creating a Batch Service][gs-batch-processing]
 
-[gs-rest-service]: /guides/gs/rest-service/content
-[gs-accessing-facebook]: /guides/gs/accessing-facebook/content
-[gs-accessing-twitter]: /guides/gs/accessing-twitter/content
-[gs-rest-hateoas]: /guides/gs/rest-hateoas/content
+[gs-capturing-stream-data]: /guides/gs/capturing-stream-data/content
+[gs-messaging-jms]: /guides/gs/messaging-jms/content
+[gs-messaging-rabbitmq]: /guides/gs/messaging-rabbitmq/content
+[gs-messaging-redis]: /guides/gs/messaging-redis/content
+[gs-batch-processing]: /guides/gs/batch-processing/content
 
 ### Tutorials
 
