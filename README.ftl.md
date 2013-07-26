@@ -1,7 +1,5 @@
 <#assign project_id="gs-integration">
 
-# Getting Started: Integrating Data
-
 What you'll build
 -----------------
 

@@ -1,6 +1,4 @@
 
-# Getting Started: Integrating Data
-
 What you'll build
 -----------------
 
