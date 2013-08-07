@@ -24,8 +24,10 @@ There's more to integrating data than is covered here. You may want to continue 
 
 ### Understanding
 
+* [OAUTH][u-oauth]
 * [REST][u-rest]
 * [JSON][u-json]
 
+[u-oauth]: /understanding/oauth
 [u-rest]: /understanding/rest
 [u-json]: /understanding/json
