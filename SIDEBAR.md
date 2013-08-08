@@ -10,11 +10,11 @@ There's more to integrating data than is covered here. You may want to continue 
 * [Messaging with Redis][gs-messaging-redis]
 * [Creating a Batch Service][gs-batch-processing]
 
-[gs-capturing-stream-data]: /guides/gs/capturing-stream-data/content
-[gs-messaging-jms]: /guides/gs/messaging-jms/content
-[gs-messaging-rabbitmq]: /guides/gs/messaging-rabbitmq/content
-[gs-messaging-redis]: /guides/gs/messaging-redis/content
-[gs-batch-processing]: /guides/gs/batch-processing/content
+[gs-capturing-stream-data]: /guides/gs/capturing-stream-data/
+[gs-messaging-jms]: /guides/gs/messaging-jms/
+[gs-messaging-rabbitmq]: /guides/gs/messaging-rabbitmq/
+[gs-messaging-redis]: /guides/gs/messaging-redis/
+[gs-batch-processing]: /guides/gs/batch-processing/
 
 ### Tutorials
 
