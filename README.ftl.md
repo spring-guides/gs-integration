@@ -1,9 +1,10 @@
 <#assign project_id="gs-integration">
+This guide walks you through using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
 
 What you'll build
 -----------------
 
-This guide walks you through using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
+You'll create a flow using Spring Integration.
 
 What you'll need
 ----------------
