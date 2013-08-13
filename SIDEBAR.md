@@ -28,6 +28,6 @@ There's more to integrating data than is covered here. You may want to continue 
 * [REST][u-rest]
 * [JSON][u-json]
 
-<@u_oauth/>
-<@u_rest/>
-<@u_json/>
+[u-oauth]: /understanding/OAuth
+[u-rest]: /understanding/REST
+[u-json]: /understanding/JSON
