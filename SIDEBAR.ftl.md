@@ -2,7 +2,7 @@
 
 There's more to integrating data than is covered here. You may want to continue your exploration of Spring with the following
 
-### Getting Started Guides
+### Getting Started guides
 
 * [Capturing Stream Data][gs-capturing-stream-data]
 * [Messaging with JMS][gs-messaging-jms]
@@ -22,7 +22,7 @@ There's more to integrating data than is covered here. You may want to continue 
 
 [tut-rest]: /guides/tutorials/rest
 
-### Understanding
+### Concepts and technologies
 
 * [OAUTH][u-oauth]
 * [REST][u-rest]
