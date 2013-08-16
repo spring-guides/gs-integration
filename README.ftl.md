@@ -21,9 +21,9 @@ Set up the project
 
 <@create_directory_structure_hello/>
 
-### Create a Maven POM
+### Create a Gradle build file
 
-    <@snippet path="pom.xml" prefix="initial"/>
+    <@snippet path="build.gradle" prefix="initial"/>
 
 <@bootstrap_starter_pom_disclaimer/>
 
@@ -72,14 +72,14 @@ The `oauth2Template()` method references the `Environment` to get "clientId" and
 
 Finally, notice that `Application` is configured with `@ImportResource` to import the integration plan defined in `/hello/integration.xml`. 
 
-## <@build_an_executable_jar/>
+## <@build_an_executable_jar_with_gradle/>
 
 Run the application
 -----------------------
 
 Now you can run the application from the jar:
 ```
-$ java -DclientId={YOUR CLIENT ID} -DclientSecret={YOUR CLIENT SECRET} -jar target/${project_id}-complete-0.1.0.jar
+$ java -DclientId={YOUR CLIENT ID} -DclientSecret={YOUR CLIENT SECRET} -jar build/libs/${project_id}-0.1.0.jar
 
 ... app starts up ...
 ```
