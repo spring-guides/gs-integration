@@ -1,4 +1,4 @@
-This guide walks you through using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
+This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
 
 What you'll build
 -----------------
@@ -145,7 +145,7 @@ The integration plan references two beans that aren't defined in `integration.xm
 Make the application executable
 -------------------------------
 
-Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web applicaion, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You also build the application into a standalone executable JAR file.
+Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You also build the application into a standalone executable JAR file.
 
 ### Create a main class
 
@@ -201,6 +201,7 @@ The `oauth2Template()` method references the `Environment` to get "clientId" and
 
 Finally, notice that `Application` is configured with `@ImportResource` to import the integration plan defined in `/hello/integration.xml`. 
 
+### Build an executable JAR
 Now that your `Application` class is ready, you simply instruct the build system to create a single, executable jar containing everything. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
 
 Update your Gradle `build.gradle` file's `buildscript` section, so that it looks like this:
