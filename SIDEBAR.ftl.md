@@ -1,6 +1,6 @@
-### Related Resources
+## Related resources
 
-There's more to integrating data than is covered here. You may want to continue your exploration of Spring with the following
+There's more to integrating data than what is covered here. You can continue to explore working with data and Spring with the following resources.
 
 ### Getting Started guides
 
