@@ -21,9 +21,8 @@ Set up the project
 
 <@create_directory_structure_hello/>
 
-### Create a Gradle build file
 
-    <@snippet path="build.gradle" prefix="initial"/>
+<@create_both_builds/>
 
 <@bootstrap_starter_pom_disclaimer/>
 
@@ -73,7 +72,7 @@ The `oauth2Template()` method references the `Environment` to get "clientId" and
 Finally, notice that `Application` is configured with `@ImportResource` to import the integration plan defined in `/hello/integration.xml`. 
 
 <@build_an_executable_jar_subhead/>
-<@build_an_executable_jar_with_gradle/>
+<@build_an_executable_jar_with_both/>
 
 Run the application
 -----------------------
