@@ -292,9 +292,9 @@ Congratulations! You have developed a simple application that uses Spring Integr
 [u-war]: /understanding/WAR
 [u-tomcat]: /understanding/Tomcat
 [u-application-context]: /understanding/application-context
-[`SpringApplication`]: http://static.springsource.org/spring-bootstrap/docs/0.5.0.M2/javadoc-api/org/springframework/bootstrap/SpringApplication.html
+[`SpringApplication`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/SpringApplication.html
 [`@Component`]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/stereotype/Component.html
-[`@EnableAutoConfiguration`]: http://static.springsource.org/spring-bootstrap/docs/0.5.0.M2/javadoc-api/org/springframework/bootstrap/context/annotation/SpringApplication.html
+[`@EnableAutoConfiguration`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
 [`DispatcherServlet`]: http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html
 [SpringSocial]: http://www.springsource.org/spring-social
 [gs-register-twitter-app]: /guides/gs/register-twitter-app
