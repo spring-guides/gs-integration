@@ -4,13 +4,11 @@ There's more to integrating data than what is covered here. You can continue to 
 
 ### Getting Started guides
 
-* [Capturing Stream Data][gs-capturing-stream-data]
 * [Messaging with JMS][gs-messaging-jms]
 * [Messaging with RabbitMQ][gs-messaging-rabbitmq]
 * [Messaging with Redis][gs-messaging-redis]
 * [Creating a Batch Service][gs-batch-processing]
 
-[gs-capturing-stream-data]: /guides/gs/capturing-stream-data/
 [gs-messaging-jms]: /guides/gs/messaging-jms/
 [gs-messaging-rabbitmq]: /guides/gs/messaging-rabbitmq/
 [gs-messaging-redis]: /guides/gs/messaging-redis/
