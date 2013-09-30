@@ -112,5 +112,5 @@ Congratulations! You have developed a simple application that uses Spring Integr
 [`@Component`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Component.html
 [`@EnableAutoConfiguration`]: http://docs.spring.io/spring-boot/docs/0.5.0.M3/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
 [`DispatcherServlet`]: http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html
-[SpringSocial]: http://www.springsource.org/spring-social
+[SpringSocial]: http://projects.spring.io/spring-social/
 [gs-register-twitter-app]: /guides/gs/register-twitter-app
