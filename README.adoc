@@ -19,7 +19,6 @@ You'll create a flow using Spring Integration.
 
 include::https://raw.github.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
-:jump_ahead: Define an integration plan
 include::https://raw.github.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
 [[scratch]]
