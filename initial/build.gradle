@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration")
-    compile("org.springframework.integration:spring-integration-twitter:3.0.0.RELEASE")
+    compile("org.springframework.integration:spring-integration-twitter:4.0.3.RELEASE")
     testCompile("junit:junit")
 }
 
