@@ -14,7 +14,7 @@ projects: [spring-integration]
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-integration
-This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file. This guide uses traditional Spring Integration XML configuration; other guides exist showing the use of JavaConfig/DSL with and without JDK 8 Lambda expressions.
+This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from an RSS Feed (Spring Blog), manipulates the data, and then writes it to a file. This guide uses traditional Spring Integration XML configuration; other guides exist showing the use of JavaConfig/DSL with and without JDK 8 Lambda expressions.
 
 == What you'll build
 
