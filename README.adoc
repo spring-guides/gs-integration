@@ -14,7 +14,7 @@ projects: [spring-integration]
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-integration
-This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file.
+This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from Twitter, manipulates the data, and then writes it to a file. This guide uses traditional Spring Integration XML configuration; other guides exist showing the use of JavaConfig/DSL with and without JDK 8 Lambda expressions.
 
 == What you'll build
 
@@ -34,54 +34,40 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 
 [[initial]]
-== Define an integration plan
+== Define an integration flow
 
-For this guide's sample application, you will define a Spring Integration plan that reads tweets from Twitter, transforms them into an easily readable `String`, and appends that `String` to the end of a file.
+For this guide's sample application, you will define a Spring Integration flow that reads blog posts from Spring IO's RSS feed, transforms them into an easily readable `String` consisting of the post title and the URL for the post, and appends that `String` to the end of a file `/tmp/si/SpringBlog`.
 
-To define an integration plan, you simply create a Spring XML configuration with a handful of elements from Spring Integration's XML namespaces. Specifically, for the desired integration plan, you work with elements from these Spring Integration namespaces: core, twitter, and file.
+To define an integration flow, you simply create a Spring XML configuration with a handful of elements from Spring Integration's XML namespaces. Specifically, for the desired integration flow, you work with elements from these Spring Integration namespaces: core, feed, and file.
 
-The following XML configuration file defines the integration plan:
+The following XML configuration file defines the integration flow:
 
-`src/main/resources/hello/integration.xml`
+`src/main/resources/blog/integration.xml`
 [source,xml]
 ----
-include::complete/src/main/resources/hello/integration.xml[]
+include::complete/src/main/resources/blog/integration.xml[]
 ----
 
 As you can see, three integration elements are in play here:
 
- * `<twitter:search-inbound-channel-adapter>`. An inbound adapter that searches Twitter for tweets with "#HelloWorld" in the text. It is injected with a `TwitterTemplate` from {SpringSocial}[Spring Social] to perform the actual search. As configured here, it polls every 5 seconds. Any matching tweets are placed into a channel named "tweets" (corresponding with the adapter's ID).
- * `<int:transformer>`. Transformed tweets in the "tweets" channel, extracting the tweet's author (`payload.fromUser`) and text (`payload.text`) and concatenating them into a readable `String`. The `String` is then written through the output channel named "files".
- * `<file:outbound-channel-adapter>`. An outbound adapter that writes content from its channel (here named "files") to a file. Specifically, as configured here, it will append anything in the "files" channel to a file at `/tmp/si/HelloWorld`.
+ * `<feed:inbound-channel-adapter>`. An inbound adapter that retrieves the posts, one per poll. As configured here, it polls every 5 seconds. The posts are placed into a channel named "news" (corresponding with the adapter's ID).
+ * `<int:transformer>`. Transforms entries (`com.rometools.rome.feed.synd.SyndEntry`) in the "news" channel, extracting the entry's title (`payload.title`) and link (`payload.link`) and concatenating them into a readable `String` (adding a newline). The `String` is then sent to the output channel named "file".
+ * `<file:outbound-channel-adapter>`. An outbound channel adapter that writes content from its channel (here named "file") to a file. Specifically, as configured here, it will append anything in the "file" channel to a file at `/tmp/si/SpringBlog`.
 
 This simple flow is illustrated like this:
 
-image::images/tweetToFile.png[A flow plan that reads tweets from Twitter, transforms them to a String, and appends them to a file.]
-
-The integration plan references two beans that aren't defined in `integration.xml`: the "twitterTemplate" bean that is injected into the search inbound adapter and the "newline" bean referenced in the transformer. Those beans will be declared separately in JavaConfig as part of the main class of the application.
+image::images/blogToFile.png[A flow that reads RSS feed entries, transforms them to a String, and appends them to a file.]
 
 == Make the application executable
 
-Although it is common to configure a Spring Integration plan within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration plan and also declares a handful of beans to support the integration plan. You also build the application into a standalone executable JAR file.
+Although it is common to configure a Spring Integration flow within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration flow and also declares a handful of beans to support the integration flow. You also build the application into a standalone executable JAR file. We use Spring Boot's `SpringApplication` to create the application context.
 
 
-`src/main/java/hello/Application.java`
+`src/main/java/blog/Application.java`
 [source,java]
 ----
-include::complete/src/main/java/hello/Application.java[]
+include::complete/src/main/java/blog/Application.java[]
 ----
-
-As you can see, this class provides a `main()` method that loads the Spring application context. It's also annotated as a `@Configuration` class, indicating that it will contain bean definitions.
-
-Specifically, three beans are created in this class:
-
- * The `newline()` method creates a simple `String` bean containing the underlying system's newline character(s). This is used in the integration plan to place a newline at the end of the transformed tweet `String`.
- * The `twitterTemplate()` method defines a `TwitterTemplate` bean that is injected into the `<twitter:search-inbound-channel-adapter>`.
- * The `oauth2Template()` method defines a Spring Social `OAuth2Template` bean used to obtain a client access token when creating the `TwitterTemplate` bean.
-
-The `oauth2Template()` method references the `Environment` to get "clientId" and "clientSecret" properties. Those properties are ultimately client credentials you are given when you {gs-register-twitter-app}[register your application with Twitter]. Fetching them from the `Environment` means you don't have to hardcode them in this configuration class. You'll need them when you <<run>>, though.
-
-Finally, notice that `Application` is configured with `@ImportResource` to import the integration plan defined in `/hello/integration.xml`. 
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_subhead.adoc[]
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
@@ -91,30 +77,27 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 Now you can run the application from the jar:
 ....
-java -DclientId={YOUR CLIENT ID} -DclientSecret={YOUR CLIENT SECRET} -jar build/libs/{project_id}-0.1.0.jar
+java -jar build/libs/{project_id}-0.1.0.jar
 
 ... app starts up ...
 ....
 
-Make sure you specify your application's client ID and secret in place of the placeholders shown here.
+Once the application starts up, it connects to the RSS feed and starts fetching blog posts. The application processes those posts through the integration flow you defined, ultimately appending the post information to a file at `/tmp/si/SpringBlog`.
 
-Once the application starts up, it connects to Twitter and starts fetching tweets that match the search criteria of "#HelloWorld". The application processes those tweets through the integration plan you defined, ultimately appending the tweet's author and text to a file at `/tmp/si/HelloWorld`.
-
-After the application has been running for awhile, you should be able to view the file at `/tmp/si/HelloWorld` to see the data from a handful of tweets. On a UNIX-based operating system, you can also choose to tail the file to see the results as they are written:
+After the application has been running for awhile, you should be able to view the file at `/tmp/si/SpringBlog` to see the data from a handful of posts. On a UNIX-based operating system, you can also choose to tail the file to see the results as they are written:
 
 ----
-tail -f /tmp/si/HelloWorld
+tail -f /tmp/si/SpringBlog
 ----
 
-You should see something like this (the actual tweets may differ):
+You should see something like this (the actual news will differ):
 
 ....
-BrittLieTjauw  :  Now that I'm all caught up on the bachelorette I can leave my room #helloworld
-mishra_ravish  :  Finally, integrated #eclim. #Android #HelloWorld
-NordstrmPetite  :  Pink and fluffy #chihuahua #hahalol #boo #helloworld http://t.co/lelHhFN3gq
-GRhoderick  :  Ok Saint Louis, show me what you got. #HelloWorld
+Spring Integration Java DSL 1.0 GA Released @ https://spring.io/blog/2014/11/24/spring-integration-java-dsl-1-0-ga-released
+This Week in Spring - November 25th, 2014 @ https://spring.io/blog/2014/11/25/this-week-in-spring-november-25th-2014
+Spring Integration Java DSL: Line by line tutorial @ https://spring.io/blog/2014/11/25/spring-integration-java-dsl-line-by-line-tutorial
+Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/spring-for-apache-hadoop-2-1-0-m2-released
 ....
 
 == Summary
-Congratulations! You have developed a simple application that uses Spring Integration to fetch tweets from Twitter, process them, and write them to a file. 
-
+Congratulations! You have developed a simple application that uses Spring Integration to fetch blog posts from spring.io, process them, and write them to a file.

@@ -21,8 +21,8 @@
 
         <dependency>
             <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-twitter</artifactId>
-            <version>4.0.3.RELEASE</version>
+            <artifactId>spring-integration-feed</artifactId>
+            <version>4.0.4.RELEASE</version>
         </dependency>
     </dependencies>
 
