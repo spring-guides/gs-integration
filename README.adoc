@@ -102,3 +102,6 @@ Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/s
 
 == Summary
 Congratulations! You have developed a simple application that uses Spring Integration to fetch blog posts from spring.io, process them, and write them to a file.
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+
