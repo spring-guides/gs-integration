@@ -26,8 +26,12 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration")
-    compile("org.springframework.integration:spring-integration-feed:4.0.4.RELEASE")
+    compile("org.springframework.integration:spring-integration-feed")
     testCompile("junit:junit")
+}
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
 }
 
 task wrapper(type: Wrapper) {
