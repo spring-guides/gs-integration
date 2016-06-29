@@ -43,10 +43,10 @@ To define an integration flow, you simply create a Spring XML configuration with
 
 The following XML configuration file defines the integration flow:
 
-`src/main/resources/blog/integration.xml`
+`src/main/resources/hello/integration.xml`
 [source,xml]
 ----
-include::complete/src/main/resources/blog/integration.xml[]
+include::complete/src/main/resources/hello/integration.xml[]
 ----
 
 As you can see, three integration elements are in play here:
@@ -64,10 +64,10 @@ image::images/blogToFile.png[A flow that reads RSS feed entries, transforms them
 Although it is common to configure a Spring Integration flow within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration flow and also declares a handful of beans to support the integration flow. You also build the application into a standalone executable JAR file. We use Spring Boot's `SpringApplication` to create the application context.
 
 
-`src/main/java/blog/Application.java`
+`src/main/java/hello/Application.java`
 [source,java]
 ----
-include::complete/src/main/java/blog/Application.java[]
+include::complete/src/main/java/hello/Application.java[]
 ----
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_subhead.adoc[]
