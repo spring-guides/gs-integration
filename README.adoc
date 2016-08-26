@@ -18,7 +18,7 @@ This guide walks you through the process of using Spring Integration to create a
 
 == What you'll build
 
-You'll create a flow using Spring Integration.
+You'll create a flow with Spring Integration using traditional XML configuration.
 
 == What you'll need
 
@@ -59,9 +59,15 @@ This simple flow is illustrated like this:
 
 image::images/blogToFile.png[A flow that reads RSS feed entries, transforms them to a String, and appends them to a file.]
 
+Ignore the `auto-startup` attribute for now; we'll revisit that later when discussing testing; just notice that it will be `true` by default which means the posts will be fetched when the application starts.
+Also note the property placeholder in the `filename-generator-expression`; this means the default will be `SpringBlog` but can be overridden with a property
+
 == Make the application executable
 
-Although it is common to configure a Spring Integration flow within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application. That's what you do next, creating a main class that kicks off the integration flow and also declares a handful of beans to support the integration flow. You also build the application into a standalone executable JAR file. We use Spring Boot's `SpringApplication` to create the application context.
+Although it is common to configure a Spring Integration flow within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application.
+That's what you do next, creating a main class that kicks off the integration flow and also declares a handful of beans to support the integration flow. You also build the application into a standalone executable JAR file.
+We use Spring Boot's `SpringApplication` to create the application context.
+Since this guide uses an the XML namespace for the integration flow, notice that we use `@ImportResource` to load it into the application context.
 
 
 `src/main/java/hello/Application.java`
@@ -100,8 +106,29 @@ Spring Integration Java DSL: Line by line tutorial @ https://spring.io/blog/2014
 Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/spring-for-apache-hadoop-2-1-0-m2-released
 ....
 
+== Testing
+
+Examine the `complete` project and you will see a test case.
+
+`src/test/java/hello/FlowTests.java`
+[source,java]
+----
+include::complete/src/test/java/hello/FlowTests.java[]
+----
+
+This uses Spring Boot's test support to set a property `auto.startup` to `false`.
+It is generally not a good idea to rely on a network connection for tests, especially in a CI environment.
+So, instead, we prevent the feed adapter from starting and inject a `SyndEntry` into the `news` channel for processing by the rest of the flow.
+The test also sets the `feed.file.name` so the test writes to a different file; then:
+
+- verifies the adapter is stopped
+- creates a test `SyndEntry`
+- deletes the test output file (if it's present)
+- sends the message
+- verifies the file exists
+- reads the file and verifies that the data is as expected
+
 == Summary
 Congratulations! You have developed a simple application that uses Spring Integration to fetch blog posts from spring.io, process them, and write them to a file.
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
-

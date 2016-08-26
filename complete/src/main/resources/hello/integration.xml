@@ -9,11 +9,11 @@
 		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <feed:inbound-channel-adapter id="news" url="https://spring.io/blog.atom">
+    <feed:inbound-channel-adapter id="news" url="http://spring.io/blog.atom" auto-startup="${auto.startup:true}">
         <int:poller fixed-rate="5000"/>
     </feed:inbound-channel-adapter>
 
-    <int:transformer 
+    <int:transformer
             input-channel="news"
             expression="payload.title + ' @ ' + payload.link + '#{systemProperties['line.separator']}'"
             output-channel="file"/>
@@ -22,6 +22,6 @@
             mode="APPEND"
             charset="UTF-8"
             directory="/tmp/si"
-            filename-generator-expression="'SpringBlog'"/>
+            filename-generator-expression="'${feed.file.name:SpringBlog}'"/>
 
 </beans>
