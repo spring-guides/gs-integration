@@ -36,9 +36,6 @@ tasks.withType(JavaExec) {
     standardInput = System.in
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
 
 eclipse {
     project {
