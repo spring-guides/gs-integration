@@ -131,4 +131,10 @@ The test also sets the `feed.file.name` so the test writes to a different file; 
 == Summary
 Congratulations! You have developed a simple application that uses Spring Integration to fetch blog posts from spring.io, process them, and write them to a file.
 
+== See Also
+
+The following guide may also be helpful:
+
+* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
+
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
