@@ -10,67 +10,148 @@
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-integration
-This guide walks you through the process of using Spring Integration to create a simple application that retrieves data from an RSS Feed (Spring Blog), manipulates the data, and then writes it to a file. This guide uses traditional Spring Integration XML configuration; other guides exist showing the use of JavaConfig/DSL with and without JDK 8 Lambda expressions.
 
-== What you'll build
+This guide walks you through the process of using Spring Integration to create a simple
+application that retrieves data from an RSS Feed (Spring Blog), manipulates the data, and
+then writes it to a file. This guide uses traditional Spring Integration XML
+configuration. Other guides show how to use Java Configuration and DSL with and without
+JDK 8 Lambda expressions.
 
-You'll create a flow with Spring Integration using traditional XML configuration.
+== What You Will Build
 
-== What you'll need
+You will create a flow with Spring Integration by using traditional XML configuration.
+
+== What You Need
 
 :java_version: 1.8
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-gradle.adoc[]
+== Starting with Spring Initializr
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-maven.adoc[]
+For all Spring applications, you should start with the https://start.spring.io[Spring
+Initializr]. The Initializr offers a fast way to pull in all the dependencies you need for
+an application and does a lot of the set up for you. This example needs only the Spring
+Integration dependency. The following image shows the Initializr set up for this sample
+project:
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-sts.adoc[]
+image::images/initializr.png[]
 
+NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
+can also use Gradle. It also shows values of `com.example` and `integration` as the Group
+and Artifact, respectively. You will use those values throughout the rest of this sample.
+
+The following listing shows the `pom.xml` file that is created when you choose Maven:
+
+====
+[src,xml]
+----
+include::initial/pom.xml[]
+----
+====
+
+The following listing shows the `build.gradle` file that is created when you choose Gradle:
+
+====
+[src,java]
+----
+include::initial/build.gradle[]
+----
+====
+
+== Add to the Build Files
+
+For this example, you need to add two dependencies:
+
+* `spring-integration-feed`
+* `spring-integration-file`
+
+The following listing shows the final `pom.xml` file:
+
+====
+[src,xml]
+----
+include::complete/pom.xml[]
+----
+====
+
+The following listing shows the final `build.gradle` file:
+
+====
+[src,java]
+----
+include::complete/build.gradle[]
+----
+====
 
 [[initial]]
-== Define an integration flow
+== Define an Integration Flow
 
-For this guide's sample application, you will define a Spring Integration flow that reads blog posts from Spring IO's RSS feed, transforms them into an easily readable `String` consisting of the post title and the URL for the post, and appends that `String` to the end of a file `/tmp/si/SpringBlog`.
+For this guide's sample application, you will define a Spring Integration flow that:
 
-To define an integration flow, you simply create a Spring XML configuration with a handful of elements from Spring Integration's XML namespaces. Specifically, for the desired integration flow, you work with elements from these Spring Integration namespaces: core, feed, and file.
+* Reads blog posts from the RSS feed at spring.io.
+* Transforms them into an easily readable `String` consisting of the post title and the URL for the post.
+* Appends that `String` to the end of a file (`/tmp/si/SpringBlog`).
 
-The following XML configuration file defines the integration flow:
+To define an integration flow, you can create a Spring XML configuration with a handful of
+elements from Spring Integration's XML namespaces. Specifically, for the desired
+integration flow, you work with elements from these Spring Integration namespaces: core,
+feed, and file. (Getting the last two is why we had to modify the build files provided by
+the Spring Initializr.)
 
-`src/main/resources/hello/integration.xml`
+The following XML configuration file (from
+`src/main/resources/integration/integration.xml`) defines the integration flow:
+
+====
 [source,xml]
 ----
-include::complete/src/main/resources/hello/integration.xml[]
+include::complete/src/main/resources/integration/integration.xml[]
 ----
+====
 
-As you can see, three integration elements are in play here:
+Three integration elements are in play here:
 
- * `<feed:inbound-channel-adapter>`. An inbound adapter that retrieves the posts, one per poll. As configured here, it polls every 5 seconds. The posts are placed into a channel named "news" (corresponding with the adapter's ID).
- * `<int:transformer>`. Transforms entries (`com.rometools.rome.feed.synd.SyndEntry`) in the "news" channel, extracting the entry's title (`payload.title`) and link (`payload.link`) and concatenating them into a readable `String` (adding a newline). The `String` is then sent to the output channel named "file".
- * `<file:outbound-channel-adapter>`. An outbound channel adapter that writes content from its channel (here named "file") to a file. Specifically, as configured here, it will append anything in the "file" channel to a file at `/tmp/si/SpringBlog`.
+* `<feed:inbound-channel-adapter>`: An inbound adapter that retrieves the posts, one per
+poll. As configured here, it polls every five seconds. The posts are placed into a channel
+named `news` (corresponding to the adapter's ID).
+* `<int:transformer>`: Transforms entries (`com.rometools.rome.feed.synd.SyndEntry`) in
+the `news` channel, extracting the entry's title (`payload.title`) and link
+(`payload.link`) and concatenating them into a readable `String` (and adding a newline).
+The `String` is then sent to the output channel named `file`.
+* `<file:outbound-channel-adapter>`: An outbound channel adapter that writes content from
+its channel (named `file`) to a file. Specifically, as configured here, it appends
+anything in the `file` channel to a file at `/tmp/si/SpringBlog`.
 
-This simple flow is illustrated like this:
+The following image shows this simple flow:
 
 image::images/blogToFile.png[A flow that reads RSS feed entries, transforms them to a String, and appends them to a file.]
 
-Ignore the `auto-startup` attribute for now; we'll revisit that later when discussing testing; just notice that it will be `true` by default which means the posts will be fetched when the application starts.
-Also note the property placeholder in the `filename-generator-expression`; this means the default will be `SpringBlog` but can be overridden with a property
+Ignore the `auto-startup` attribute for now. We revisit that later when we discuss
+testing. For now, notice that it is, by default, `true`, which means the posts are fetched
+when the application starts. Also note the property placeholder in the
+`filename-generator-expression`. It means that the default is `SpringBlog` but can be
+overridden with a property.
 
-== Make the application executable
+== Make the Application Executable
 
-Although it is common to configure a Spring Integration flow within a larger application, perhaps even a web application, there's no reason that it can't be defined in a simpler standalone application.
-That's what you do next, creating a main class that kicks off the integration flow and also declares a handful of beans to support the integration flow. You also build the application into a standalone executable JAR file.
-We use Spring Boot's `SpringApplication` to create the application context.
-Since this guide uses an the XML namespace for the integration flow, notice that we use `@ImportResource` to load it into the application context.
+Although it is common to configure a Spring Integration flow within a larger application
+(perhaps even a web application), there is no reason that it cannot be defined in a
+simpler standalone application. That is what you will do next: Create a main class that
+kicks off the integration flow and that declares a handful of beans to support the
+integration flow. You will also build the application into a standalone executable JAR
+file. We use Spring Boot's `@SpringBootApplication` annotation to create the application
+context. Since this guide uses the XML namespace for the integration flow, you must use
+the `@ImportResource` annotation to load it into the application context. The following
+listing (from `src/main/java/com/example/integration/IntegrationApplication.java`) shows
+the application file:
 
-
-`src/main/java/hello/Application.java`
+====
 [source,java]
 ----
-include::complete/src/main/java/hello/Application.java[]
+include::complete/src/main/java/com/example/integration/IntegrationApplication.java[]
 ----
+====
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_subhead.adoc[]
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
@@ -78,54 +159,75 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[run]]
 == Run the application
 
-Now you can run the application from the jar:
-....
+Now you can run the application from the jar by running the following command:
+
+====
+[source,bash]
+----
 java -jar build/libs/{project_id}-0.1.0.jar
 
 ... app starts up ...
-....
+----
+====
 
-Once the application starts up, it connects to the RSS feed and starts fetching blog posts. The application processes those posts through the integration flow you defined, ultimately appending the post information to a file at `/tmp/si/SpringBlog`.
+Once the application starts, it connects to the RSS feed and starts fetching blog posts.
+The application processes those posts through the integration flow you defined, ultimately
+appending the post information to a file at `/tmp/si/SpringBlog`.
 
-After the application has been running for awhile, you should be able to view the file at `/tmp/si/SpringBlog` to see the data from a handful of posts. On a UNIX-based operating system, you can also choose to tail the file to see the results as they are written:
+After the application has been running for awhile, you should be able to view the file at
+`/tmp/si/SpringBlog` to see the data from a handful of posts. On a UNIX-based operating
+system, you can also `tail` the file to see the results, as they are written, by running
+the following command:
 
+====
+[source,bash]
 ----
 tail -f /tmp/si/SpringBlog
 ----
+====
 
-You should see something like this (the actual news will differ):
+You should see something like the following sample output (though the actual news will
+differ):
 
-....
+====
+[source,bash]
+----
 Spring Integration Java DSL 1.0 GA Released @ https://spring.io/blog/2014/11/24/spring-integration-java-dsl-1-0-ga-released
 This Week in Spring - November 25th, 2014 @ https://spring.io/blog/2014/11/25/this-week-in-spring-november-25th-2014
 Spring Integration Java DSL: Line by line tutorial @ https://spring.io/blog/2014/11/25/spring-integration-java-dsl-line-by-line-tutorial
 Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/spring-for-apache-hadoop-2-1-0-m2-released
-....
+----
+====
 
 == Testing
 
-Examine the `complete` project and you will see a test case.
+Examine the `complete` project and you will see a test case, in
+`src/test/java/com/example/integration/FlowTests.java`:
 
-`src/test/java/hello/FlowTests.java`
+====
 [source,java]
 ----
-include::complete/src/test/java/hello/FlowTests.java[]
+include::complete/src/test/java/com/example/integration/FlowTests.java[]
 ----
+====
 
-This uses Spring Boot's test support to set a property `auto.startup` to `false`.
-It is generally not a good idea to rely on a network connection for tests, especially in a CI environment.
-So, instead, we prevent the feed adapter from starting and inject a `SyndEntry` into the `news` channel for processing by the rest of the flow.
-The test also sets the `feed.file.name` so the test writes to a different file; then:
+This test uses Spring Boot's test support to set a property named `auto.startup` to
+`false`. It is generally not a good idea to rely on a network connection for tests,
+especially in a CI environment. Instead, we prevent the feed adapter from starting and
+inject a `SyndEntry` into the `news` channel for processing by the rest of the flow. The
+test also sets the `feed.file.name` so that the test writes to a different file. Then it:
 
-- verifies the adapter is stopped
-- creates a test `SyndEntry`
-- deletes the test output file (if it's present)
-- sends the message
-- verifies the file exists
-- reads the file and verifies that the data is as expected
+- Verifies that the adapter is stopped.
+- Creates a test `SyndEntry`.
+- Deletes the test output file (if it is present).
+- Sends the message.
+- Verifies that the file exists.
+- Reads the file and verifies that the data is as expected.
 
 == Summary
-Congratulations! You have developed a simple application that uses Spring Integration to fetch blog posts from spring.io, process them, and write them to a file.
+
+Congratulations! You have developed a simple application that uses Spring Integration to
+fetch blog posts from spring.io, process them, and write them to a file.
 
 == See Also
 
