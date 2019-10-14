@@ -34,7 +34,7 @@ public class FlowTests {
 		assertThat(this.newsAdapter.isRunning()).isFalse();
 		SyndEntryImpl syndEntry = new SyndEntryImpl();
 		syndEntry.setTitle("Test Title");
-		syndEntry.setLink("http://foo/bar");
+		syndEntry.setLink("https://foo/bar");
 		File out = new File("/tmp/si/Test");
 		out.delete();
 		assertThat(out.exists()).isFalse();
@@ -42,7 +42,7 @@ public class FlowTests {
 		assertThat(out.exists()).isTrue();
 		BufferedReader br = new BufferedReader(new FileReader(out));
 		String line = br.readLine();
-		assertThat(line).isEqualTo("Test Title @ http://foo/bar");
+		assertThat(line).isEqualTo("Test Title @ https://foo/bar");
 		br.close();
 		out.delete();
 	}
