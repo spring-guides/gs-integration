@@ -6,19 +6,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest({ "auto.startup=false",      // we don't want to start the real feed
                   "feed.file.name=Test" })   // use a different file
 public class FlowTests {
