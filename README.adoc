@@ -148,7 +148,7 @@ listing (from `src/main/java/com/example/integration/IntegrationApplication.java
 the application file:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/src/main/java/com/example/integration/IntegrationApplication.java[]
 ----
@@ -206,7 +206,7 @@ Examine the `complete` project and you will see a test case, in
 `src/test/java/com/example/integration/FlowTests.java`:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/src/test/java/com/example/integration/FlowTests.java[]
 ----

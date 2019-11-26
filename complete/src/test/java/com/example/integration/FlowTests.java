@@ -16,8 +16,8 @@ import org.springframework.messaging.MessageChannel;
 
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 
-@SpringBootTest({ "auto.startup=false",      // we don't want to start the real feed
-                  "feed.file.name=Test" })   // use a different file
+@SpringBootTest({ "auto.startup=false",	  // we don't want to start the real feed
+				  "feed.file.name=Test" })   // use a different file
 public class FlowTests {
 
 	@Autowired
