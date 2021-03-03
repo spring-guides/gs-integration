@@ -5,6 +5,7 @@
 :EnableAutoConfiguration: http://docs.spring.io/spring-boot/docs/{spring_boot_version}/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
 :DispatcherServlet: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html
 :SpringApplication: http://docs.spring.io/spring-boot/docs/{spring_boot_version}/api/org/springframework/boot/SpringApplication.html
+:images: https://raw.githubusercontent.com/spring-guides/gs-integration/master/images
 :gs-register-twitter-app: link:/guides/gs/register-twitter-app
 :toc:
 :icons: font
@@ -121,7 +122,7 @@ anything in the `file` channel to a file at `/tmp/si/SpringBlog`.
 
 The following image shows this simple flow:
 
-image::images/blogToFile.png[A flow that reads RSS feed entries, transforms them to a String, and appends them to a file.]
+image::{images}/blogToFile.png[A flow that reads RSS feed entries, transforms them to a String, and appends them to a file.]
 
 Ignore the `auto-startup` attribute for now. We revisit that later when we discuss
 testing. For now, notice that it is, by default, `true`, which means the posts are fetched
