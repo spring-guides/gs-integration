@@ -32,7 +32,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-If you use Maven, visit the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.3.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[Spring Initializr] to generate a new project with the required dependency (Spring Integration).
+If you use Maven, visit the https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.4.3&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[Spring Initializr] to generate a new project with the required dependency (Spring Integration).
 
 The following listing shows the `pom.xml` file that is created when you choose Maven:
 
@@ -43,7 +43,7 @@ include::initial/pom.xml[]
 ----
 ====
 
-If you use Gradle, visit the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.3.RELEASE&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[Spring Initializr] to generate a new project with the required dependency (Spring Integration).
+If you use Gradle, visit the https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.4.3&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[Spring Initializr] to generate a new project with the required dependency (Spring Integration).
 
 The following listing shows the `build.gradle` file that is created when you choose Gradle:
 
