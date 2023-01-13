@@ -1,5 +1,5 @@
 :spring_version: current
-:spring_boot_version: 2.4.3
+:spring_boot_version: current
 :SpringSocial: http://projects.spring.io/spring-social/
 :Component: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/stereotype/Component.html
 :EnableAutoConfiguration: http://docs.spring.io/spring-boot/docs/{spring_boot_version}/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
@@ -16,7 +16,7 @@ This guide walks you through the process of using Spring Integration to create a
 application that retrieves data from an RSS Feed (Spring Blog), manipulates the data, and
 then writes it to a file. This guide uses traditional Spring Integration XML
 configuration. Other guides show how to use Java Configuration and DSL with and without
-JDK 8 Lambda expressions.
+Lambda expressions.
 
 == What You Will Build
 
@@ -24,7 +24,6 @@ You will create a flow with Spring Integration by using traditional XML configur
 
 == What You Need
 
-:java_version: 1.8
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/how_to_complete_this_guide.adoc[]
@@ -32,7 +31,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
