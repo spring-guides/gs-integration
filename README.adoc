@@ -1,12 +1,4 @@
-:spring_version: current
-:spring_boot_version: current
-:SpringSocial: http://projects.spring.io/spring-social/
-:Component: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/stereotype/Component.html
-:EnableAutoConfiguration: http://docs.spring.io/spring-boot/docs/{spring_boot_version}/api/org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
-:DispatcherServlet: http://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html
-:SpringApplication: http://docs.spring.io/spring-boot/docs/{spring_boot_version}/api/org/springframework/boot/SpringApplication.html
 :images: https://raw.githubusercontent.com/spring-guides/gs-integration/main/images
-:gs-register-twitter-app: link:/guides/gs/register-twitter-app
 :toc:
 :icons: font
 :source-highlighter: prettify
