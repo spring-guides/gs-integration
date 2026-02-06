@@ -142,7 +142,7 @@ Now you can run the application from the jar by running the following command:
 ====
 [source,bash]
 ----
-java -jar build/libs/{project_id}-0.1.0.jar
+java -jar build/libs/{project_id}-0.0.1-SNAPSHOT.jar
 
 ... app starts up ...
 ----
