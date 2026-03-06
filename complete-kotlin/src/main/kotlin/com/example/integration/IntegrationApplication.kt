@@ -1,7 +1,7 @@
 package com.example.integration
 
-import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ImportResource
 
 @SpringBootApplication
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ImportResource
 class IntegrationApplication
 
 fun main(args: Array<String>) {
-	val ctx = SpringApplication(IntegrationApplication::class.java).run(*args)
-	println("Hit Enter to terminate")
-	System.`in`.read()
-	ctx.close()
+    val ctx = runApplication<IntegrationApplication>(*args)
+    println("Hit Enter to terminate")
+    System.`in`.read()
+    ctx.close()
 }

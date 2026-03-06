@@ -23,7 +23,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=gradle-project&groupId=com.example&artifactId=integration&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=gradle-project&jvmVersion=17&packaging=jar&groupId=com.example&artifactId=integration&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
@@ -186,7 +186,7 @@ Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/s
 
 == Testing
 
-Examine the `complete` project and you will see a test case:
+Examine the `complete` (or `complete-kotlin`) project and find the `FlowTests` test case:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
