@@ -23,20 +23,20 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&groupId=com.example&artifactId=integration&name=integration&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=gradle-project&groupId=com.example&artifactId=integration&packageName=com.example.integration&dependencies=integration[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Choose either Gradle or Maven and the language you want to use.
 . Click *Dependencies* and select *Spring Integration*.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
 
 NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
 
-NOTE: You can also fork the project from Github and open it in your IDE or other editor.
+NOTE: You can also fork the project from GitHub and open it in your IDE or other editor.
 
 == Add to the Build Files
 
@@ -56,12 +56,16 @@ include::complete/pom.xml[]
 
 The following listing shows the final `build.gradle` file:
 
-====
-[src,java]
+[source,groovy,indent=0,subs="verbatim,quotes",role="primary"]
+.Gradle (Groovy)
 ----
 include::complete/build.gradle[]
 ----
-====
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Gradle (Kotlin)
+----
+include::complete-kotlin/build.gradle.kts[]
+----
 
 [[initial]]
 == Define an Integration Flow
@@ -121,15 +125,18 @@ integration flow. You will also build the application into a standalone executab
 file. We use Spring Boot's `@SpringBootApplication` annotation to create the application
 context. Since this guide uses the XML namespace for the integration flow, you must use
 the `@ImportResource` annotation to load it into the application context. The following
-listing (from `src/main/java/com/example/integration/IntegrationApplication.java`) shows
-the application file:
+listing shows the application file:
 
-====
-[source,java,tabsize=2]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::complete/src/main/java/com/example/integration/IntegrationApplication.java[]
 ----
-====
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::complete-kotlin/src/main/kotlin/com/example/integration/IntegrationApplication.kt[]
+----
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_subhead.adoc[]
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_with_both.adoc[]
@@ -152,7 +159,7 @@ Once the application starts, it connects to the RSS feed and starts fetching blo
 The application processes those posts through the integration flow you defined, ultimately
 appending the post information to a file at `/tmp/si/SpringBlog`.
 
-After the application has been running for awhile, you should be able to view the file at
+After the application has been running for a while, you should be able to view the file at
 `/tmp/si/SpringBlog` to see the data from a handful of posts. On a UNIX-based operating
 system, you can also `tail` the file to see the results, as they are written, by running
 the following command:
@@ -179,15 +186,18 @@ Spring for Apache Hadoop 2.1.0.M2 Released @ https://spring.io/blog/2014/11/14/s
 
 == Testing
 
-Examine the `complete` project and you will see a test case, in
-`src/test/java/com/example/integration/FlowTests.java`:
+Examine the `complete` project and you will see a test case:
 
-====
-[source,java,tabsize=2]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::complete/src/test/java/com/example/integration/FlowTests.java[]
 ----
-====
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::complete-kotlin/src/test/kotlin/com/example/integration/FlowTests.kt[]
+----
 
 This test uses Spring Boot's test support to set a property named `auto.startup` to
 `false`. It is generally not a good idea to rely on a network connection for tests,
