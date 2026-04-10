@@ -12,7 +12,8 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-@SpringBootTest(properties = ["auto.startup=false", "feed.file.name=Test"])
+@SpringBootTest(properties = ["auto.startup=false",   // We don't want to start the real feed
+				  "feed.file.name=Test"])              // Use a different file
 class FlowTests {
 
 	@Autowired

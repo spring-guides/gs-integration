@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ImportResource
 class IntegrationApplication
 
 fun main(args: Array<String>) {
-    val ctx = runApplication<IntegrationApplication>(*args)
-    println("Hit Enter to terminate")
-    System.`in`.read()
-    ctx.close()
+	val ctx = runApplication<IntegrationApplication>(*args)
+	println("Hit Enter to terminate")
+	System.`in`.read()
+	ctx.close()
 }
