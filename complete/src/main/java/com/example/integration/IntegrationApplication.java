@@ -14,5 +14,4 @@ public class IntegrationApplication {
 		System.in.read();
 		ctx.close();
 	}
-
 }
