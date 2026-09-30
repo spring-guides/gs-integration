@@ -1,1 +1,1 @@
-rootProject.name = "integration"
+rootProject.name = "integration-initial"

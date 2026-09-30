@@ -45,24 +45,20 @@ For this example, you need to add two dependencies:
 * `spring-integration-feed`
 * `spring-integration-file`
 
-The following listing shows the final `pom.xml` file:
+The following listing shows the final build file:
 
-====
-[src,xml]
+[source,xml,indent=0,subs="verbatim,quotes",role="primary"]
+.Maven (pom.xml)
 ----
 include::complete/pom.xml[]
 ----
-====
-
-The following listing shows the final `build.gradle` file:
-
-[source,groovy,indent=0,subs="verbatim,quotes",role="primary"]
-.Gradle (Groovy)
+[source,groovy,indent=0,subs="verbatim,quotes",role="secondary"]
+.Gradle Groovy (build.gradle)
 ----
 include::complete/build.gradle[]
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
-.Gradle (Kotlin)
+.Gradle Kotlin (build.gradle.kts)
 ----
 include::complete-kotlin/build.gradle.kts[]
 ----
@@ -82,8 +78,7 @@ integration flow, you work with elements from these Spring Integration namespace
 feed, and file. (Getting the last two is why we had to modify the build files provided by
 the Spring Initializr.)
 
-The following XML configuration file (from
-`src/main/resources/integration/integration.xml`) defines the integration flow:
+The following XML configuration file defines the integration flow:
 
 ====
 [source,xml]
@@ -149,7 +144,7 @@ Now you can run the application from the jar by running the following command:
 ====
 [source,bash]
 ----
-java -jar build/libs/{project_id}-0.0.1-SNAPSHOT.jar
+java -jar build/libs/integration-complete-0.0.1-SNAPSHOT.jar
 
 ... app starts up ...
 ----
